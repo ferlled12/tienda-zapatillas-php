@@ -3,7 +3,7 @@ session_start();
 require_once 'conexion.php';
 
 // Control de acceso estricto: solo el admin puede entrar
-if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') { // Asegúrate de que el rol coincida con el que pusiste en phpMyAdmin ('administrador' o 'admin')
     die("Acceso denegado. Solo administradores.");
 }
 
@@ -51,8 +51,14 @@ $articulos = $pdo->query("SELECT * FROM Articulos")->fetchAll();
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <h2>Panel de administración de Artículos</h2>
-    <a href="logout.php">Cerrar sesión</a>
+    <h2>Panel de administración de artículos</h2>
+    
+    <!-- ENLACES DE NAVEGACIÓN AÑADIDOS AQUÍ -->
+    <nav style="margin-bottom: 20px;">
+        <a href="usuarios_admin.php" style="margin-right: 15px; font-weight: bold;">Gestión de usuarios</a> 
+        <a href="logout.php">Cerrar sesión</a>
+    </nav>
+    
     <p style="color: green;"><?= $mensaje ?></p>
     <hr>
 
