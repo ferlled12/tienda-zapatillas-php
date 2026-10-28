@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Registro - Tienda Zapatillas</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <h2>Registro de nuevo cliente</h2>

@@ -1,0 +1,254 @@
+/* DISEÑO MODERNO TIPO "SNEAKER ZONE" */
+:root {
+    --azul-principal: #2563eb;
+    --azul-hover: #1d4ed8;
+    --texto-oscuro: #1e3a8a;
+    --texto-gris: #64748b;
+    --rosa-acento: #f43f5e;
+    --rosa-fondo: #ffe4e6;
+    --fondo-web: #f4f7f9;
+    --blanco: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--fondo-web);
+    color: var(--texto-oscuro);
+    margin: 0;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ================= HEADER FLOTANTE ================= */
+.tienda-header {
+    background-color: var(--blanco);
+    border-radius: 50px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 15px 40px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.tienda-header .logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--texto-oscuro);
+    text-transform: uppercase;
+}
+
+.tienda-header .logo span {
+    color: var(--rosa-acento); /* Da el color rosa a la palabra ZONE */
+}
+
+.navegacion {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navegacion a {
+    color: var(--texto-oscuro);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.navegacion a:hover {
+    color: var(--azul-principal);
+}
+
+/* Botón especial del carrito en el header */
+.navegacion a.btn-carrito {
+    background-color: var(--azul-principal);
+    color: var(--blanco);
+    padding: 10px 25px;
+    border-radius: 30px;
+}
+
+.navegacion a.salir {
+    color: var(--texto-gris);
+}
+
+/* ================= SECCIÓN HERO (PORTADA) ================= */
+.hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    width: 100%;          /* Obliga al bloque a expandirse */
+    max-width: 800px;
+    margin: 0 auto;       /* Empuja el bloque al centro exacto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge-rosa {
+    background-color: var(--rosa-fondo);
+    color: var(--rosa-acento);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    color: var(--texto-oscuro);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--texto-gris);
+    margin-bottom: 30px;
+}
+
+/* ================= BOTONES GLOBALES ================= */
+button, input[type="submit"], .btn-portada, .btn-comprar {
+    background-color: var(--azul-principal);
+    color: var(--blanco);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+button:hover, input[type="submit"]:hover, .btn-portada:hover, .btn-comprar:hover {
+    background-color: var(--azul-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ================= PRODUCTOS (CATÁLOGO) ================= */
+.contenedor-tienda {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto 50px auto; /* Esto centra el contenedor principal en la pantalla */
+}
+
+h2 {
+    text-align: center;
+    color: var(--azul-principal);
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.tarjeta-producto {
+    background: var(--blanco);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.img-zapatilla {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+    background-color: #e2e8f0; /* Fondo gris para la imagen */
+    margin-bottom: 20px;
+}
+
+.info-producto h3 {
+    color: var(--azul-principal);
+    font-size: 1.4rem;
+    margin: 10px 0;
+}
+
+.info-producto .precio {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--rosa-acento);
+    margin-bottom: 20px;
+}
+
+/* ================= FORMULARIOS (LOGIN, REGISTRO) ================= */
+form.formulario-auth {
+    background: var(--blanco);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 400px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+form.formulario-auth h2 {
+    color: var(--texto-oscuro);
+    margin-top: 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--azul-principal);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ================= TABLAS (CARRITO) ================= */
+.contenedor {
+    background: var(--blanco);
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    color: var(--texto-gris);
+    border-bottom: 2px solid var(--fondo-web);
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+}

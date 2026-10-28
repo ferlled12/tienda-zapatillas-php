@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login - Tienda Zapatillas</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <h2>Acceso de usuarios</h2>

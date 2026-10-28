@@ -138,48 +138,85 @@ if (!empty($_SESSION['carrito'])) {
 <head>
     <meta charset="UTF-8">
     <title>Mi carrito - Tienda zapatillas</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <h2>Carrito de <?= $_SESSION['nombre'] ?></h2>
-    <a href="catalogo.php">Volver al catálogo</a>
-    <p style="color: green; font-weight: bold;"><?= $mensaje ?></p>
-    <hr>
+<!-- Cabecera unificada -->
+    <header class="tienda-header">
+        <div class="logo">SNEAKER <span>ZONE</span></div>
+        <nav class="navegacion">
+            <a href="index.php" class="btn-nav">Inicio</a>
+            <a href="catalogo.php" class="btn-nav">Catálogo</a>
+            
+            <?php if(isset($_SESSION['id_usuario'])): ?>
+                <!-- Si está logueado mostramos su nombre y el botón de salir -->
+                <span style="color: var(--texto-gris); font-weight: 600; margin-right: 10px;">
+                    Hola, <?= htmlspecialchars($_SESSION['nombre']) ?>
+                </span>
+                <a href="logout.php" class="btn-nav salir">Cerrar sesión</a>
+            <?php else: ?>
+                <!-- Si NO está logueado mostramos los enlaces de acceso -->
+                <a href="login.php" class="btn-nav">Iniciar sesión</a>
+                <a href="registro.php" class="btn-nav">Crear cuenta</a>
+            <?php endif; ?>
+            
+            <!-- El botón azul del carrito siempre a la derecha -->
+            <a href="carrito.php" class="btn-nav btn-carrito">🛒 Carrito</a>
+        </nav>
+    </header>
 
-    <?php if (empty($datosCarrito)): ?>
-        <p>Tu carrito está vacío actualmente.</p>
-    <?php else: ?>
-        <table border="1" cellpadding="8" style="border-collapse: collapse;">
-            <tr style="background-color: #f2f2f2;">
-                <th>Artículo</th>
-                <th>Precio unitario</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-            </tr>
-            <?php foreach ($datosCarrito as $item): ?>
-            <tr>
-                <td><?= $item['nombre_zapatilla'] ?></td>
-                <td><?= $item['precio'] ?> €</td>
-                <td><?= $item['cantidad'] ?></td>
-                <td><?= $item['subtotal'] ?> €</td>
-            </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
-                <td><strong><?= $totalCarrito ?> €</strong></td>
-            </tr>
-        </table>
-        <br>
+    <main class="contenedor-tienda">
+        <h2>Tu Carrito de Compra</h2>
         
-        <!-- Formulario para acciones del carrito (Comprar o Vaciar) -->
-        <form action="carrito.php" method="POST" style="display: inline-block;">
-            <input type="hidden" name="accion" value="comprar">
-            <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px;">Confirmar Compra</button>
-        </form>
-        
-        <form action="carrito.php" method="POST" style="display: inline-block;">
-            <input type="hidden" name="accion" value="vaciar">
-            <button type="submit" style="background-color: #f44336; color: white; padding: 10px;">Vaciar Carrito</button>
-        </form>
-    <?php endif; ?>
+        <!-- Mensaje de éxito/error con diseño -->
+        <?php if (!empty($mensaje)): ?>
+            <div style="background-color: #dcfce3; color: #166534; padding: 1rem; border-radius: 6px; margin-bottom: 2rem; text-align: center; font-weight: bold; border: 1px solid #bbf7d0;">
+                <?= htmlspecialchars($mensaje) ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (empty($datosCarrito)): ?>
+            <div style="text-align: center; padding: 4rem; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <p style="font-size: 1.2rem; color: #6b7280; margin-bottom: 2rem;">Tu carrito está vacío actualmente.</p>
+                <a href="catalogo.php" class="btn-comprar" style="text-decoration: none; padding: 1rem 2rem; display: inline-block; width: auto;">Volver al catálogo</a>
+            </div>
+        <?php else: ?>
+            <div class="contenedor" style="margin: 0 auto; max-width: 900px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Artículo</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    <?php foreach ($datosCarrito as $item): ?>
+                    <tr>
+                        <td><strong><?= htmlspecialchars($item['nombre_zapatilla']) ?></strong></td>
+                        <td><?= number_format($item['precio'], 2) ?> €</td>
+                        <td><?= htmlspecialchars($item['cantidad']) ?></td>
+                        <td><strong><?= number_format($item['subtotal'], 2) ?> €</strong></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3" style="text-align: right; font-size: 1.2rem;"><strong>Total a pagar:</strong></td>
+                        <td style="font-size: 1.2rem; color: var(--color-primario);"><strong><?= number_format($totalCarrito, 2) ?> €</strong></td>
+                    </tr>
+                </table>
+                
+                <!-- Botones de acción alineados a la derecha -->
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <form action="carrito.php" method="POST">
+                        <input type="hidden" name="accion" value="vaciar">
+                        <button type="submit" style="background-color: #ef4444; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">Vaciar Carrito</button>
+                    </form>
+                    
+                    <form action="carrito.php" method="POST">
+                        <input type="hidden" name="accion" value="comprar">
+                        <button type="submit" class="btn-comprar" style="width: auto; padding: 0.75rem 2rem; background-color: #10b981;">Confirmar Compra ✓</button>
+                    </form>
+                </div>
+            </div>
+        <?php endif; ?>
+    </main>
 </body>
 </html>

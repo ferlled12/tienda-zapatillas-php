@@ -48,6 +48,7 @@ $articulos = $pdo->query("SELECT * FROM Articulos")->fetchAll();
 <head>
     <meta charset="UTF-8">
     <title>Panel de administración</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <h2>Panel de administración de Artículos</h2>
