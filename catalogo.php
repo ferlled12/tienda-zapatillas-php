@@ -15,7 +15,7 @@ $articulos = $stmt->fetchAll();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Catálogo - Sneaker Zone</title>
+    <title>Catálogo - Sneaker Shop</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>

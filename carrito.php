@@ -143,7 +143,7 @@ if (!empty($_SESSION['carrito'])) {
 <body>
 <!-- Cabecera unificada -->
     <header class="tienda-header">
-        <div class="logo">SNEAKER <span>ZONE</span></div>
+        <div class="logo">SNEAKER <span>SHOP</span></div>
         <nav class="navegacion">
             <a href="index.php" class="btn-nav">Inicio</a>
             <a href="catalogo.php" class="btn-nav">Catálogo</a>
@@ -166,7 +166,7 @@ if (!empty($_SESSION['carrito'])) {
     </header>
 
     <main class="contenedor-tienda">
-        <h2>Tu Carrito de Compra</h2>
+        <h2>Tu carrito de compra</h2>
         
         <!-- Mensaje de éxito/error con diseño -->
         <?php if (!empty($mensaje)): ?>

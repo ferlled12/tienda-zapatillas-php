@@ -4,35 +4,51 @@ require_once 'conexion.php';
 
 // 1. ELIMINAR USUARIO
 if (isset($_GET['eliminar'])) {
-    $id = $_GET['eliminar'];
-    $stmt = $pdo->prepare("DELETE FROM Usuarios WHERE id_usuario = ?");
-    $stmt->execute([$id]);
-    header("Location: usuarios_admin.php");
-    exit;
+    try {
+        $id = $_GET['eliminar'];
+        $stmt = $pdo->prepare("DELETE FROM Usuarios WHERE id_usuario = ?");
+        $stmt->execute([$id]);
+        header("Location: usuarios_admin.php");
+        exit;
+    } catch (PDOException $e) {
+        die("Error SQL al eliminar usuario: " . $e->getMessage());
+    }
 }
 
 // 2. CREAR USUARIO
 if (isset($_POST['crear'])) {
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
-    $password = $_POST['password']; // Añade password_hash() si encriptas las contraseñas
-    $rol = $_POST['rol'];
-    $stmt = $pdo->prepare("INSERT INTO Usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$nombre, $email, $password, $rol]);
-    header("Location: usuarios_admin.php");
-    exit;
+    try {
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        $password = $_POST['password']; 
+        $rol = $_POST['rol'];
+        
+        // CORREGIDO: Usamos nombre_usuario para que coincida con tu BD
+        $stmt = $pdo->prepare("INSERT INTO Usuarios (nombre_usuario, email, password, rol) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$nombre, $email, $password, $rol]);
+        header("Location: usuarios_admin.php");
+        exit;
+    } catch (PDOException $e) {
+        die("Error SQL al crear usuario: " . $e->getMessage());
+    }
 }
 
 // 3. EDITAR USUARIO (Guardar cambios)
 if (isset($_POST['editar'])) {
-    $id = $_POST['id_usuario'];
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
-    $rol = $_POST['rol'];
-    $stmt = $pdo->prepare("UPDATE Usuarios SET nombre = ?, email = ?, rol = ? WHERE id_usuario = ?");
-    $stmt->execute([$nombre, $email, $rol, $id]);
-    header("Location: usuarios_admin.php");
-    exit;
+    try {
+        $id = $_POST['id_usuario'];
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        $rol = $_POST['rol'];
+        
+        // CORREGIDO: Usamos nombre_usuario
+        $stmt = $pdo->prepare("UPDATE Usuarios SET nombre_usuario = ?, email = ?, rol = ? WHERE id_usuario = ?");
+        $stmt->execute([$nombre, $email, $rol, $id]);
+        header("Location: usuarios_admin.php");
+        exit;
+    } catch (PDOException $e) {
+        die("Error SQL al editar usuario: " . $e->getMessage());
+    }
 }
 
 // LEER TODOS LOS USUARIOS
@@ -43,7 +59,7 @@ $usuarios = $pdo->query("SELECT * FROM Usuarios")->fetchAll();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de usuarios - admin</title>
+    <title>Gestión de Usuarios - Admin</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -68,7 +84,7 @@ $usuarios = $pdo->query("SELECT * FROM Usuarios")->fetchAll();
                 <input type="password" name="password" placeholder="Contraseña" required style="flex: 1;">
                 <select name="rol" required style="padding: 14px; border-radius: 12px; border: 1px solid #cbd5e1; flex: 1;">
                     <option value="cliente">Cliente</option>
-                    <option value="administrador">Admin</option>
+                    <option value="admin">Administrador</option>
                 </select>
                 <button type="submit" name="crear" class="btn-comprar">Crear usuario</button>
             </form>
@@ -92,12 +108,12 @@ $usuarios = $pdo->query("SELECT * FROM Usuarios")->fetchAll();
                         <form action="usuarios_admin.php" method="POST">
                             <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
                             <td><?= $u['id_usuario'] ?></td>
-                            <td><input type="text" name="nombre" value="<?= htmlspecialchars($u['nombre']) ?>" style="padding: 8px;"></td>
+                            <td><input type="text" name="nombre" value="<?= htmlspecialchars($u['nombre_usuario']) ?>" style="padding: 8px;"></td>
                             <td><input type="email" name="email" value="<?= htmlspecialchars($u['email']) ?>" style="padding: 8px;"></td>
                             <td>
                                 <select name="rol" style="padding: 8px;">
                                     <option value="cliente" <?= $u['rol'] == 'cliente' ? 'selected' : '' ?>>Cliente</option>
-                                    <option value="administrador" <?= $u['rol'] == 'administrador' ? 'selected' : '' ?>>Admin</option>
+                                    <option value="admin" <?= $u['rol'] == 'admin' ? 'selected' : '' ?>>Admin</option>
                                 </select>
                             </td>
                             <td>

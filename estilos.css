@@ -1,4 +1,4 @@
-/* DISEÑO MODERNO TIPO "SNEAKER ZONE" */
+/* DISEÑO MODERNO SNEAKER SHOP */
 :root {
     --azul-principal: #2563eb;
     --azul-hover: #1d4ed8;
@@ -44,7 +44,7 @@ body {
 }
 
 .tienda-header .logo span {
-    color: var(--rosa-acento); /* Da el color rosa a la palabra ZONE */
+    color: var(--rosa-acento); /* Da el color rosa a la palabra Shop */
 }
 
 .navegacion {
